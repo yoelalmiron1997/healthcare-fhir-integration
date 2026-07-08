@@ -1,0 +1,16 @@
+{
+  "first_name": "Juan",
+  "last_name": "Pérez",
+  "birth_date": "1985-04-12",
+  "gender": "male",
+  "document_id": "12345678",
+  "phone": "+541112345678",
+  "email": "juan.perez@example.com",
+  "address": {
+    "line": "Av. Siempre Viva 123",
+    "city": "Buenos Aires",
+    "state": "BA",
+    "postal_code": "1000",
+    "country": "AR"
+  }
+}

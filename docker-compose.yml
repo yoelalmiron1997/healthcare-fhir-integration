@@ -1,0 +1,13 @@
+services:
+  api:
+    build: .
+    container_name: healthcare-fhir-api
+    ports:
+      - "8000:8000"
+    environment:
+      # Cambiar a "json" para usar el backend de archivos JSON en lugar de SQLite
+      - STORAGE_MODE=sqlite
+    volumes:
+      # Persiste los datos (SQLite o JSON store) en el host, fuera del contenedor
+      - ./data:/app/data
+    restart: unless-stopped
