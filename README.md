@@ -1,5 +1,7 @@
 # Healthcare FHIR Integration (Simulación)
 
+[![CI/CD](https://github.com/<tu-usuario>/<tu-repo>/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/<tu-usuario>/<tu-repo>/actions/workflows/ci-cd.yml)
+
 Mini proyecto en Python que simula una integración de tipo *healthcare*:
 
 1. Expone una **API REST con FastAPI** que recibe datos de pacientes en JSON.
@@ -15,6 +17,9 @@ Mini proyecto en Python que simula una integración de tipo *healthcare*:
 healthcare-fhir-integration/
 ├── README.md                     <- este archivo
 ├── requirements.txt              <- dependencias del proyecto
+├── .github/
+│   └── workflows/
+│       └── ci-cd.yml             <- pipeline de CI/CD (tests, build Docker, deploy)
 ├── Dockerfile                    <- imagen Docker de la API
 ├── docker-compose.yml            <- orquestación local con persistencia de datos
 ├── render.yaml                   <- blueprint de despliegue en Render (demo en vivo)
@@ -190,6 +195,64 @@ curl http://localhost:8000/health
 
 La imagen incluye un `HEALTHCHECK` propio, por lo que `docker ps` mostrará el
 estado `healthy` una vez que la API responda correctamente.
+
+## CI/CD (GitHub Actions)
+
+El proyecto incluye un pipeline en `.github/workflows/ci-cd.yml` que corre
+automáticamente en cada `push` y en cada Pull Request contra `main`. Así, a
+medida que el proyecto evoluciona, cada cambio se valida solo antes de llegar
+a producción.
+
+### Qué hace el pipeline
+
+| Job              | Cuándo corre                          | Qué valida                                                    |
+|-------------------|----------------------------------------|-----------------------------------------------------------------|
+| `test`            | Todo push y todo PR contra `main`      | Corre `pytest tests/ -v` (los 14 tests de API + transformación FHIR) |
+| `docker-build`    | Después de `test`, si pasó             | Que la imagen Docker sigue construyendo sin errores            |
+| `deploy`          | Solo en push directo a `main`, después de que los dos anteriores pasen | Dispara un deploy en Render (opcional, ver abajo) |
+
+Si `test` falla, `docker-build` y `deploy` ni siquiera se ejecutan — el
+pipeline corta ahí. Esto evita desplegar código que rompe algo.
+
+### Configurar el deploy automático a Render (opcional)
+
+Por defecto, Render ya redepliega automáticamente cada vez que detecta un
+push a la rama conectada (esto pasa por fuera de GitHub Actions). Si en cambio
+querés que el deploy dependa explícitamente de que los tests pasen en CI:
+
+1. En Render: abrí tu servicio → **Settings** → buscá **Deploy Hook** → copiá la URL.
+2. En Render: en el mismo servicio, desactivá **Auto-Deploy** (para que no
+   despliegue automáticamente en cada push, y lo haga solo cuando este
+   workflow lo dispare después de que los tests pasen).
+3. En GitHub: andá a tu repo → **Settings** → **Secrets and variables** →
+   **Actions** → **New repository secret**.
+4. Nombre: `RENDER_DEPLOY_HOOK_URL`. Valor: la URL que copiaste en el paso 1.
+5. Listo — a partir del próximo push a `main` que pase los tests, el job
+   `deploy` va a llamar a esa URL y disparar el redeploy en Render.
+
+Si no configurás el secret, el job `deploy` simplemente se salta ese paso sin
+marcar error (podés dejar el auto-deploy nativo de Render funcionando como
+está, y usar el pipeline solo para tests + validación de Docker).
+
+### Proteger la rama `main` (recomendado)
+
+Para que nadie (ni vos sin querer) pueda mergear código que rompe los tests:
+
+1. En GitHub: **Settings** → **Branches** → **Add branch protection rule**.
+2. Rama: `main`.
+3. Activá **Require status checks to pass before merging** y seleccioná el
+   check `Tests (pytest)` (y opcionalmente `Build de la imagen Docker
+   (validación)`).
+4. Guardar.
+
+A partir de ahí, un Pull Request contra `main` no se puede mergear hasta que
+el pipeline esté en verde.
+
+### Ver el estado del pipeline
+
+En GitHub, pestaña **Actions** del repo vas a ver cada corrida, con el detalle
+de qué job pasó o falló y los logs completos de `pytest`. El badge al inicio
+de este README también refleja el estado del último run sobre `main`.
 
 ## Subir el proyecto a GitHub
 
