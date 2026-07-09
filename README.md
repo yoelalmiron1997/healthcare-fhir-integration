@@ -15,8 +15,9 @@ Mini proyecto en Python que simula una integración de tipo *healthcare*:
 5. Incluye una carpeta de **pruebas UAT** con casos de prueba, datos de ejemplo,
    pasos de ejecución y resultados esperados, además de tests automatizados con `pytest`.
 
-> 🔗 **Demo en vivo:** _agregar acá la URL de Render una vez desplegado_
-> (ver sección [Despliegue en la nube](#despliegue-en-la-nube-demo-en-vivo-con-render))
+> 🔗 **Demo en vivo:** [https://healthcare-fhir-api.onrender.com/docs](https://healthcare-fhir-api.onrender.com/docs)
+> (desplegada en Render con el plan Free — puede tardar ~30-60s en responder
+> si estuvo inactiva; ver [Despliegue en la nube](#despliegue-en-la-nube-demo-en-vivo-con-render))
 
 ## Índice
 
@@ -324,13 +325,10 @@ para desplegarlo gratis en [Render](https://render.com), usando el mismo
 - Incluye 750 horas gratis de cómputo por mes, más que suficiente para un
   proyecto de portfolio.
 
-### Agregar el link al README (opcional, recomendado para GitHub)
+### Link a la demo en el README
 
-Una vez que tengas la URL, podés agregar algo así arriba del todo del README:
-
-```markdown
-🔗 **Demo en vivo:** https://healthcare-fhir-api-xxxx.onrender.com/docs
-```
+✅ Ya agregado arriba del todo de este README, apuntando a
+`https://healthcare-fhir-api.onrender.com/docs`.
 
 ## Tests automatizados
 
