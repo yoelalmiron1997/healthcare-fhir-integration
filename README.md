@@ -286,6 +286,7 @@ git init
 git add .
 git commit -m "Proyecto inicial: API healthcare -> FHIR con Docker y UAT"
 git branch -M main
+<<<<<<< HEAD
 git remote add origin https://github.com/yoelalmiron1997/healthcare-fhir-integration.git
 git push -u origin main
 ```
@@ -293,6 +294,15 @@ git push -u origin main
 (Esto ya está hecho en el repo actual — dejamos estos comandos documentados
 para el caso de que alguien clone el proyecto desde cero y quiera subirlo a
 su propia cuenta.)
+=======
+git remote add origin https://github.com/<tu-usuario>/<tu-repo>.git
+git push -u origin main
+```
+
+(Reemplazá `<tu-usuario>/<tu-repo>` por los datos de tu repositorio en GitHub.
+Si el repo ya existe con contenido, primero cloná y copiá estos archivos adentro
+en lugar de `git init`.)
+>>>>>>> 4a3aaa5ff81e6309b8f8467e6883982c2b78ad57
 
 ## Despliegue en la nube (demo en vivo con Render)
 
@@ -325,10 +335,20 @@ para desplegarlo gratis en [Render](https://render.com), usando el mismo
 - Incluye 750 horas gratis de cómputo por mes, más que suficiente para un
   proyecto de portfolio.
 
+<<<<<<< HEAD
 ### Link a la demo en el README
 
 ✅ Ya agregado arriba del todo de este README, apuntando a
 `https://healthcare-fhir-api.onrender.com/docs`.
+=======
+### Agregar el link al README (opcional, recomendado para GitHub)
+
+Una vez que tengas la URL, podés agregar algo así arriba del todo del README:
+
+```markdown
+🔗 **Demo en vivo:** https://healthcare-fhir-api-xxxx.onrender.com/docs
+```
+>>>>>>> 4a3aaa5ff81e6309b8f8467e6883982c2b78ad57
 
 ## Tests automatizados
 
@@ -358,6 +378,7 @@ o por un equipo de QA / analistas funcionales.
   reemplazarlo por el OID/URI oficial del sistema fuente de identificación.
 - La capa de persistencia está desacoplada (`database.py` / `storage_json.py`)
   para poder intercambiar el backend sin tocar la lógica de la API.
+<<<<<<< HEAD
 
 ## Licencia
 
@@ -365,3 +386,5 @@ Este proyecto está bajo la licencia **MIT** — ver el archivo [`LICENSE`](LICE
 para el texto completo. En resumen: podés usar, copiar, modificar y distribuir
 este código libremente, incluso con fines comerciales, manteniendo el aviso
 de copyright original.
+=======
+>>>>>>> 4a3aaa5ff81e6309b8f8467e6883982c2b78ad57
