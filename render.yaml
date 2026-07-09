@@ -1,0 +1,23 @@
+# Blueprint de Render (https://render.com/docs/infrastructure-as-code)
+#
+# Permite desplegar este proyecto en Render de forma reproducible, ya sea
+# conectando el repo manualmente ("New +" -> "Blueprint") o vía el botón
+# "Deploy to Render" del README.
+#
+# NOTA sobre persistencia: el plan Free de Render no incluye disco
+# persistente, por lo que el sistema de archivos se reinicia en cada
+# redeploy. Para esta demo se usa STORAGE_MODE=json (o sqlite, da igual):
+# los datos viven mientras el servicio esté activo, y se resetean en cada
+# nuevo deploy. Si necesitás persistencia real, agregá un disco (plan pago)
+# o una base de datos administrada.
+
+services:
+  - type: web
+    name: healthcare-fhir-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: STORAGE_MODE
+        value: json
