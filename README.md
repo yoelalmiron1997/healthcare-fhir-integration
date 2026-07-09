@@ -1,6 +1,10 @@
 # Healthcare FHIR Integration (Simulación)
 
-[![CI/CD](https://github.com/<tu-usuario>/<tu-repo>/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/<tu-usuario>/<tu-repo>/actions/workflows/ci-cd.yml)
+[![CI/CD](https://github.com/yoelalmiron1997/healthcare-fhir-integration/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/yoelalmiron1997/healthcare-fhir-integration/actions/workflows/ci-cd.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688.svg)](https://fastapi.tiangolo.com/)
+[![Docker](https://img.shields.io/badge/docker-ready-2496ED.svg)](Dockerfile)
 
 Mini proyecto en Python que simula una integración de tipo *healthcare*:
 
@@ -10,6 +14,25 @@ Mini proyecto en Python que simula una integración de tipo *healthcare*:
 4. **Persiste** el resultado en **SQLite** o en **archivos JSON**, según configuración.
 5. Incluye una carpeta de **pruebas UAT** con casos de prueba, datos de ejemplo,
    pasos de ejecución y resultados esperados, además de tests automatizados con `pytest`.
+
+> 🔗 **Demo en vivo:** _agregar acá la URL de Render una vez desplegado_
+> (ver sección [Despliegue en la nube](#despliegue-en-la-nube-demo-en-vivo-con-render))
+
+## Índice
+
+- [Estructura del proyecto](#estructura-del-proyecto)
+- [Requisitos](#requisitos)
+- [Instalación](#instalación)
+- [Ejecución de la API](#ejecución-de-la-api)
+- [Endpoints](#endpoints)
+- [Ejecución con Docker](#ejecución-con-docker)
+- [CI/CD (GitHub Actions)](#cicd-github-actions)
+- [Subir el proyecto a GitHub](#subir-el-proyecto-a-github)
+- [Despliegue en la nube (Render)](#despliegue-en-la-nube-demo-en-vivo-con-render)
+- [Tests automatizados](#tests-automatizados)
+- [Pruebas UAT](#pruebas-uat)
+- [Notas de diseño](#notas-de-diseño)
+- [Licencia](#licencia)
 
 ## Estructura del proyecto
 
@@ -262,13 +285,13 @@ git init
 git add .
 git commit -m "Proyecto inicial: API healthcare -> FHIR con Docker y UAT"
 git branch -M main
-git remote add origin https://github.com/<tu-usuario>/<tu-repo>.git
+git remote add origin https://github.com/yoelalmiron1997/healthcare-fhir-integration.git
 git push -u origin main
 ```
 
-(Reemplazá `<tu-usuario>/<tu-repo>` por los datos de tu repositorio en GitHub.
-Si el repo ya existe con contenido, primero cloná y copiá estos archivos adentro
-en lugar de `git init`.)
+(Esto ya está hecho en el repo actual — dejamos estos comandos documentados
+para el caso de que alguien clone el proyecto desde cero y quiera subirlo a
+su propia cuenta.)
 
 ## Despliegue en la nube (demo en vivo con Render)
 
@@ -337,3 +360,10 @@ o por un equipo de QA / analistas funcionales.
   reemplazarlo por el OID/URI oficial del sistema fuente de identificación.
 - La capa de persistencia está desacoplada (`database.py` / `storage_json.py`)
   para poder intercambiar el backend sin tocar la lógica de la API.
+
+## Licencia
+
+Este proyecto está bajo la licencia **MIT** — ver el archivo [`LICENSE`](LICENSE)
+para el texto completo. En resumen: podés usar, copiar, modificar y distribuir
+este código libremente, incluso con fines comerciales, manteniendo el aviso
+de copyright original.
